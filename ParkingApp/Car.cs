@@ -8,17 +8,15 @@ namespace ParkingApp
 {
     class Car
     {
-        public string brand;
-        public string model;
-        public string color;
-        public string number;
-        public string timeWhichCarCame;
-        public string timeWhichCarLeft;
+        private string brand;
+        private string model;
+        private string color;
+        private string number;
+        private string timeWhichCarCame;
+        private string timeWhichCarLeft;
 
-        
         public Car()
         {
-
         }
 
         public Car(string brand, string model, string color, string number, string timeWhichCarCame, string timeWhichCarLeft)
@@ -31,7 +29,41 @@ namespace ParkingApp
             this.timeWhichCarLeft=timeWhichCarLeft;
         }
 
+        public string Brand
+        {
+            get { return this.brand; }
+            set { brand = value; }
+        }
 
+        public string Model
+        {
+            get { return this.brand; }
+            set { model = value; }
+        }
+
+        public string Color
+        {
+            get { return this.color; }
+            set { color = value; }
+        }
+
+        public string Number
+        {
+            get { return this.brand; }
+            set { model = value; }
+        }
+
+        public string TimeWhichCarCame
+        {
+            get { return this.timeWhichCarCame; }
+            set { timeWhichCarCame = value; }
+        }
+
+        public string TimeWhichCarLeft
+        {
+            get { return this.timeWhichCarLeft; }
+            set { timeWhichCarLeft = value; }
+        }
 
         public  void Print()
         {

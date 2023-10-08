@@ -6,41 +6,45 @@ using System.Threading.Tasks;
 
 namespace ParkingApp
 {
-    class Parking : Car
+    class Parking 
     {
-        public double paymentForParking = 2.50;
+        private double paymentForParking = 2.50;
 
-        public bool VIPZone;
-        public SortedSet<Car> cars = new SortedSet<Car>(); 
-
+        private bool VIPZone;
         
         public Parking()
         {
-            
+
         }
 
-        public Parking(double paymentParking, bool VIPZones, SortedSet<Car> _cars)
+        public Parking(double paymentParking, bool VIPZones)
         {
             this.paymentForParking = paymentParking;
-            this.VIPZone = VIPZones;
-            this.cars = _cars;
+            this.VIPZone = VIPZones;          
         }
 
-        private int index = 0;
+        public double PaymentForParking
+        {
+            get { return this.paymentForParking; }
+            set { paymentForParking = value; }
+        }
+        
+        public bool ViPZone
+        {
+            get { return this.VIPZone; }
+            set { VIPZone = value; }
+        }
 
         public void AddCarToTheParking(Car car)
         {
-            cars.Add(car);
-            index++;
-            
+            car.Print();                    
         }
-        public void ShowCarsOnTheParking()
+
+        public void ExportCarFromTheParking(Car car)
         {
-           
-            base.Print();
-           
-            Console.WriteLine($" Totall payment for parking: {paymentForParking}");
+            return;
         }
+       
 
     }
 }
