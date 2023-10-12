@@ -11,21 +11,49 @@ namespace ParkingApp
         static void Main(string[] args)
         {
             Car car = new Car();
-            Parking parking = new Parking();
-
+            Color color = new Color();
+                       
             car.Brand = "Toyota";
             car.Model = "Hilux";
             car.Number = "BH 1234 EA";
             car.Color = "Black";
             car.TimeWhichCarCame = "12:23";
             car.TimeWhichCarLeft = "17:12";
+            color.Opacity = 50;
+            color.Red = 121;
 
-            parking.AddCarToTheParking(car);
+            Parking parking = new Parking(1, "Odesa Parking", "Zhukowskogo 15", 50);
+
+
+            //parking.AddCarToTheParking(car);
+            parking.GetStateMessage();
+            
+            Car car2 = new Car();
+            car2.Brand = "BMW";
+            car2.Model = "X5";
+            car2.Number = "BH 2145 UA";
+            car2.Color = "Red";
+            car2.TimeWhichCarCame = "13:00";
+            car2.TimeWhichCarLeft = "-";
+
+            parking.AddCarToTheParking(car2);
+            parking.GetStateMessage();
 
             parking.ExportCarFromTheParking(car);
+            parking.GetStateMessage();
 
-           
-            
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
