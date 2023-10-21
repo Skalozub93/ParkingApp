@@ -8,12 +8,12 @@ namespace ParkingApp
 {
     internal struct Color
     {
-        private int red;
-        private int green;
-        private int blue;
+        private int _red;
+        private int _green;
+        private int _blue;
 
-        private int opacity;
-       
+        private int _opacity;
+             
         /// <summary>
         /// Constructor for red, green, blue, opacity values
         /// </summary>
@@ -21,12 +21,39 @@ namespace ParkingApp
         /// <param name="_green"></param>
         /// <param name="_blue"></param>
         /// <param name="_opacity"></param>
-        public Color(int _red, int _green, int _blue, int _opacity)
+        public Color(int red, int green, int blue, int opacity)
         {
-            this.red = _red;
-            this.green = _green;
-            this.blue = _blue;
-            this.opacity = _opacity;
+            this._red = red;
+            this._green = green;
+            this._blue = blue;
+            this._opacity = opacity;
+        }
+
+        /// <summary>
+        /// C-ctor with 2 paramaters 
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="opacity"></param>
+        public Color(int red, int opacity)
+        {
+            _red = red;
+            _green = default;
+            _blue = default;
+            _opacity = opacity;
+        }
+
+        /// <summary>
+        /// C-ctor with 3 parameters
+        /// </summary>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="opacity"></param>
+        public Color(int green, int blue, int opacity)
+        {
+            _red = default;
+            _green = green;
+            _blue = blue;
+            _opacity = opacity;
         }
         
         /// <summary>
@@ -34,8 +61,8 @@ namespace ParkingApp
         /// </summary>
         public int Red
         {
-            get { return this.red; }
-            set => SetRange();
+            get { return this._red; }
+            set => IsColorValid(value);
         }
 
         /// <summary>
@@ -43,8 +70,8 @@ namespace ParkingApp
         /// </summary>
         public int Green
         {
-            get { return this.green; }
-            set => SetRange();
+            get { return this._green; }
+            set => IsColorValid(value);
         }
 
         /// <summary>
@@ -52,8 +79,8 @@ namespace ParkingApp
         /// </summary>
         public int Blue
         {
-            get { return this.blue; }
-            set => SetRange();
+            get { return this._blue; }
+            set => IsColorValid(value);
         }
         
         /// <summary>
@@ -61,23 +88,21 @@ namespace ParkingApp
         /// </summary>
         public int Opacity
         {
-            get => this.opacity;
-            set => SetRange();            
+            get => this._opacity;
+            set => IsColorValid(value);            
         }
 
         /// <summary>
         /// The method limits input number and does not allow for mistakes
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public void SetRange()
+        public bool IsColorValid(int val)
         {
-            if(this.red < 0 || this.red > 255
-                || this.green < 0 || this.green > 255
-                || this.blue < 0 || this.blue > 255
-                || this.opacity < 0 || this.opacity > 100)
+            if(val < 0 || val > 255)
             {
-                throw new Exception("Sorry, the inputed number is incorrect\n try again!");
+                return false;
             }
+            return true;
             
         }
     }

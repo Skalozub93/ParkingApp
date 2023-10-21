@@ -17,8 +17,8 @@ namespace ParkingApp
             car.Model = "Hilux";
             car.Number = "BH 1234 EA";
             car.Color = "Black";
-            car.TimeWhichCarCame = "12:23";
-            car.TimeWhichCarLeft = "17:12";
+            car.TimeWhichCarCame = new DateTime(2023,10,14) ;
+            car.TimeWhichCarLeft = new DateTime(2023,10,18);
             color.Opacity = 50;
             color.Red = 121;
 
@@ -33,8 +33,8 @@ namespace ParkingApp
             car2.Model = "X5";
             car2.Number = "BH 2145 UA";
             car2.Color = "Red";
-            car2.TimeWhichCarCame = "13:00";
-            car2.TimeWhichCarLeft = "-";
+            car2.TimeWhichCarCame = new DateTime(2023,10,17);
+            car2.TimeWhichCarLeft = new DateTime(2023, 10,18);
 
             parking.AddCarToTheParking(car2);
             parking.GetStateMessage();
@@ -42,6 +42,13 @@ namespace ParkingApp
             parking.ExportCarFromTheParking(car);
             parking.GetStateMessage();
 
+
+            /*using (Parking parking2 = new Parking())
+            {
+                parking2.AddCarToTheParking(car);
+                parking2.AddCarToTheParking(car2);
+
+            }*/
 
 
 

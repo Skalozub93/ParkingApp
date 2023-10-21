@@ -1,21 +1,31 @@
-﻿using System;
+﻿using ParkingApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
+
 namespace ParkingApp
 {
-    class Parking
-    {
-        private int id;
-        private string nameOfParking;
-        private string address;
-        private int capacity;
-        private List<Car> car;
 
-        private int capacityOfParkingPlaces; 
+
+    class Parking : IDisposable
+    {
+
+        private int _id;
+        private string _nameOfParking;
+        private string _address;
+        private int _capacity;
+        private List<Car> _car;
+
+        private int capacityOfParkingPlaces;
+        private bool disposed;
+     
 
         /// <summary>
         /// Constructor without parameters 
@@ -33,14 +43,37 @@ namespace ParkingApp
         /// <param name="address"></param>
         /// <param name="capacity"></param>
         /// <param name="_car"></param>
-        public Parking(int _id, string _nameOfParking, string _address, int _сapacity)
+        public Parking(int id, string nameOfParking, string address, int сapacity)
         { 
-            this.id = _id;
-            this.nameOfParking = _nameOfParking;
-            this.address = _address;
-            this.capacity = _сapacity;
-            
-            car = new List<Car>(_сapacity);        
+            this._id = id;
+            this._nameOfParking = nameOfParking;
+            this._address = address;
+            this._capacity = сapacity;           
+            _car = new List<Car>(сapacity);        
+        }
+
+        /// <summary>
+        /// C-ctor with 3 parameters
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nameOfParking"></param>
+        /// <param name="address"></param>
+        public Parking(int id, string nameOfParking, string address)
+        {
+            _id = id;
+            nameOfParking = "A big car park";
+            _address = address;
+        }
+
+        /// <summary>
+        /// C-ctor with 2 parameters
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="capacity"></param>
+        public Parking(int id, int capacity)
+        {
+            _id = id;
+            _capacity = capacity;
         }
 
         /// <summary>
@@ -48,8 +81,8 @@ namespace ParkingApp
         /// </summary>
         public int Id
         {
-            get { return id; }
-            set { this.id = value; }
+            get { return _id; }
+            set { this._id = value; }
         }
             
         /// <summary>
@@ -57,8 +90,8 @@ namespace ParkingApp
         /// </summary>
         public string NameOfParking
         {
-            get { return nameOfParking; }
-            set { this.nameOfParking = value; }
+            get { return _nameOfParking; }
+            set { this._nameOfParking = value; }
         }
 
         /// <summary>
@@ -66,8 +99,8 @@ namespace ParkingApp
         /// </summary>
         public string Address
         {
-            get { return address; }
-            set { this.address = value; }
+            get { return _address; }
+            set { this._address = value; }
         }
 
         /// <summary>
@@ -75,8 +108,8 @@ namespace ParkingApp
         /// </summary>
         public int Capacity
         {
-            get { return capacity; }
-            set { this.capacity = value; }
+            get { return _capacity; }
+            set { this._capacity = value; }
         }
 
         /// <summary>
@@ -95,9 +128,28 @@ namespace ParkingApp
         /// <param name="id"></param>
         public void AddCarToTheParking(Car _car)
         {
-            if(this.car.Count < capacity)
+            if(this._car.Count < _capacity)
             {
-                this.car.Add(_car);
+                this._car.Add(_car);
+                Console.WriteLine("Car was added to the parking!");
+            }
+            else
+            {
+                Console.WriteLine("The parking place is busy!");
+            }
+        }
+
+        /// <summary>
+        /// The overloading method <AddCarToTheParking> with 2 parameters
+        /// </summary>
+        /// <param name="car"></param>
+        /// <param name="id"></param>
+        public void AddCarToTheParking(Car car, int id)
+        {
+            id++;
+            if (this._car.Count < _capacity)
+            {
+                this._car.Add(car);
                 Console.WriteLine("Car was added to the parking!");
             }
             else
@@ -110,13 +162,13 @@ namespace ParkingApp
         /// Method, which checking for parking place emptity, if the place is busy - car automaically removing
         /// </summary>
         /// <param name="car"></param>
-        public void ExportCarFromTheParking(Car _car)
-        {
-            if(this.car.Count > 0)
+        public void ExportCarFromTheParking(Car car)
+        { 
+            if(this._car.Count > 0)
             {
-                if (this.car.Contains(_car))
+                if (this._car.Contains(car))
                 {
-                    this.car.Remove(_car);
+                    this._car.Remove(car);
                     Console.WriteLine("Car was removed from the parking!");
                 }
                 else
@@ -132,11 +184,37 @@ namespace ParkingApp
         }
 
         /// <summary>
+        /// The overloading method <ExportCarFromTheParking> with 2 parameters
+        /// </summary>
+        /// <param name="car"></param>
+        /// <param name="id"></param>
+        public void ExportCarFromTheParking(Car car, int id)
+        {
+            id--;
+            if (this._car.Count > 0)
+            {
+                if (this._car.Contains(car))
+                {
+                    this._car.Remove(car);
+                    Console.WriteLine("Car was removed from the parking!");
+                }
+                else
+                {
+                    Console.WriteLine("The specified car there is no at the parking!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("The parking place is free!");
+            }
+        }
+
+        /// <summary>
         /// Information about parking place
         /// </summary>
         public void GetStateMessage()
         {
-            int available = CalculatingFreePlaces(capacity, car);
+            int available = CalculatingFreePlaces();
             Console.WriteLine($"The places are free - { available}");
         }
 
@@ -146,17 +224,21 @@ namespace ParkingApp
         /// <param name="capacity"></param>
         /// <param name="car"></param>
         /// <returns></returns>
-        public int CalculatingFreePlaces(int capacity, List <Car> car)
-        {
-            int totalCapacity = capacity;
-            int totalCars = car.Count; 
-
-            int availableSpaces = totalCapacity - totalCars;
-
-            return availableSpaces;
+        public int CalculatingFreePlaces()
+        {        
+            return Capacity - _car.Count;
         }
 
-       
-
+        /// <summary>
+        /// Method for cleaning all cars from the parking, when it necessary 
+        /// </summary>
+        public void Dispose()
+        {
+            foreach(Car car in _car)
+            {
+                _car.Clear();
+            }
+            Console.WriteLine("Cars have been left the parking!");
+        }
     }
 }

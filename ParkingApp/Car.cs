@@ -8,14 +8,14 @@ namespace ParkingApp
 {
     class Car
     {
-        private string brand;
-        private string model;
-        private string color;
-        private string number;
-        private string timeWhichCarCame;
-        private string timeWhichCarLeft;
+        private string _brand;
+        private string _model;
+        private string _color;
+        private string _number;
+        private DateTime _timeWhichCarCame;
+        private DateTime _timeWhichCarLeft;
 
-        private Color _color;
+        private Color _colorObject;
 
         /// <summary>
         /// Constructor without parameters
@@ -34,23 +34,57 @@ namespace ParkingApp
         /// <param name="number"></param>
         /// <param name="timeWhichCarCame"></param>
         /// <param name="timeWhichCarLeft"></param>
-        public Car(string brand, string model, string color, string number, string timeWhichCarCame, string timeWhichCarLeft)
+        public Car(string brand, string model, string color, string number, DateTime timeWhichCarCame, DateTime timeWhichCarLeft)
         {
-            this.brand = brand;
-            this.model = model;
-            this.color = color;
-            this.number = number;
-            this.timeWhichCarCame = timeWhichCarCame;
-            this.timeWhichCarLeft = timeWhichCarLeft;
+            this._brand = brand;
+            this._model = model;
+            this._color = color;
+            this._number = number;
+            this._timeWhichCarCame = timeWhichCarCame;
+            this._timeWhichCarLeft = timeWhichCarLeft;
         }
+
+        /// <summary>
+        /// C-ctor with 3 parameters
+        /// </summary>
+        /// <param name="brand"></param>
+        /// <param name="model"></param>
+        /// <param name="number"></param>
+        public Car(string brand, string model, string number)
+        {
+            _brand = brand;
+            _model = model;
+            _color = default;
+            _number = number;          
+        }
+
+        /// <summary>
+        /// C-ctor with 5 parameters
+        /// </summary>
+        /// <param name="brand"></param>
+        /// <param name="model"></param>
+        /// <param name="number"></param>
+        /// <param name="timeWhichCarCame"></param>
+        /// <param name="timeWhichCarLeft"></param>
+        public Car(string brand, string model, string number, DateTime timeWhichCarCame, DateTime timeWhichCarLeft)
+        {
+            _brand = brand;
+            _model = model;
+            _color = default;
+            _number = number;
+            _timeWhichCarCame = timeWhichCarCame;
+            _timeWhichCarLeft = timeWhichCarLeft;
+        }
+
+        
 
         /// <summary>
         /// The brand of car
         /// </summary>
         public string Brand
         {
-            get { return this.brand; }
-            set { brand = value; }
+            get { return this._brand; }
+            set { _brand = value; }
         }
 
         /// <summary>
@@ -58,8 +92,8 @@ namespace ParkingApp
         /// </summary>
         public string Model
         {
-            get { return this.brand; }
-            set { model = value; }
+            get { return this._brand; }
+            set { _model = value; }
         }
 
         /// <summary>
@@ -67,8 +101,8 @@ namespace ParkingApp
         /// </summary>
         public string Color
         {
-            get { return this.color; }
-            set { color = value; }
+            get { return this._color; }
+            set { _color = value; }
         }
 
         /// <summary>
@@ -76,26 +110,26 @@ namespace ParkingApp
         /// </summary>
         public string Number
         {
-            get { return this.brand; }
-            set { model = value; }
+            get { return this._brand; }
+            set { _model = value; }
         }
 
         /// <summary>
         /// Time which car is came at the parking
         /// </summary>
-        public string TimeWhichCarCame
+        public DateTime TimeWhichCarCame
         {
-            get { return this.timeWhichCarCame; }
-            set { timeWhichCarCame = value; }
+            get { return this._timeWhichCarCame; }
+            set { _timeWhichCarCame = value; }
         }
 
         /// <summary>
         /// Time which car is left the parking
         /// </summary>
-        public string TimeWhichCarLeft
+        public DateTime TimeWhichCarLeft
         {
-            get { return this.timeWhichCarLeft; }
-            set { timeWhichCarLeft = value; }
+            get { return this._timeWhichCarLeft; }
+            set { _timeWhichCarLeft = value; }
         }
 
         /// <summary>
@@ -104,7 +138,7 @@ namespace ParkingApp
         /// <param name="col"></param>
         public void ChangeColor(Color col)
         {
-            this.color = col.ToString();
+            this._color = col.ToString();
         }
 
         /// <summary>
@@ -112,12 +146,12 @@ namespace ParkingApp
         /// </summary>
         public void Print()
         {
-            Console.WriteLine($" Brand: {brand}");
-            Console.WriteLine($" Model: {model}");
-            Console.WriteLine($" Color: {color}");
-            Console.WriteLine($" Car Number: {number}");
-            Console.WriteLine($" When car is came to the parking: {timeWhichCarCame}");
-            Console.WriteLine($" Time in which car is left the parking: {timeWhichCarLeft}");
+            Console.WriteLine($" Brand: {_brand}");
+            Console.WriteLine($" Model: {_model}");
+            Console.WriteLine($" Color: {_color}");
+            Console.WriteLine($" Car Number: {_number}");
+            Console.WriteLine($" When car is came to the parking: {_timeWhichCarCame}");
+            Console.WriteLine($" Time in which car is left the parking: {_timeWhichCarLeft}");
             Console.WriteLine();
         }
     }
